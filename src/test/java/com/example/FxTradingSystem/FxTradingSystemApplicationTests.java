@@ -8,6 +8,9 @@ class FxTradingSystemApplicationTests {
 
 	@Test
 	void contextLoads() {
+
+
+
 	}
 
 }

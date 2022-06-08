@@ -8,7 +8,7 @@ public class FxUpdateMarketPricesService {
     CSVReader newReader = new CSVReader();
     List prices = newReader.CSVReader();
     System.out.println(newReader.CSVReader());
-    FxTradingSystemService createMarketPrice = new FxTradingSystemService();
+    FxTradingSystemCommissionService createMarketPrice = new FxTradingSystemCommissionService();
     createMarketPrice.addCommissionBid(prices);
     createMarketPrice.addCommissionAsk(prices);
     System.out.println(prices);

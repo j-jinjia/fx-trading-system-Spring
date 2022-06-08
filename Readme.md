@@ -21,13 +21,19 @@ Notes:
 First approach:
 -
 - I will assume there is only 1 message coming form the feed in a CSV format. The message is hardcoded in the Main class.
+- Thinking about UNIT tests. Write unit tests for : 
+  - Commission applying correctly.
+  - Prices returned correctly
 - I created the functions that adds/substract the corresponding comissions to ask/bid respectively. 
 - Created the Price class with the respective properties of (ID, instrument name, bid, ask, timestamp).
+- 
 
 
 Second approach:
 -
 - I switched to SpringBoot in order to be able to create an endpoint to return the updated prices. 
+- Writing Unit tests for :
+  - Checking the CSV reader works.
 - Progressing from my first approach, I added more messages to the feed. 
 - For that, I created a CSV file and added the example messages, created a CSV reader and returned each line as a Price class. 
 - Each price is added to a List. 
@@ -35,7 +41,7 @@ Second approach:
 
 Third approach:
 - 
-- Added Unit testing
+- 
 
 
 
