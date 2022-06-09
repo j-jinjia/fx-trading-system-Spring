@@ -1,52 +1,54 @@
 package com.example.FxTradingSystem;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.assertj.core.condition.Negative;
+import org.junit.Before;
+import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
-class FxTradingSystemCommissionServiceTest {
-// test that the commissions are applied correctly to bid and ask methods.
-    @Autowired
-    FxTradingSystemCommissionService commissionService;
-    @BeforeEach
-    void setUp() {
-        List<Price> prices;
-        MockitoAnnotations.initMocks(this);
+public class FxTradingSystemCommissionServiceTest {
 
+    FxTradingSystemCommissionService testCommission = new FxTradingSystemCommissionService();
+    ArrayList<Price> testPrices = new ArrayList<>();
+    ArrayList<Price> testExpectedPricesAsk = new ArrayList<>();
+    ArrayList<Price> testExpectedPricesBid = new ArrayList<>();
+
+
+    @Before
+    public void setUp() throws Exception {
+        Price testPrice = new Price(106, "EUR/USD", 1.1000,1.2000,"01-06-2020 12:01:01:001");
+        testPrices.add(testPrice);
+        //positive test cases
+        Price expectedPriceAsk = new Price(106, "EUR/USD", 1.1987999999999999,1.2000,"01-06-2020 12:01:01:001");
+        testExpectedPricesAsk.add(expectedPriceAsk);
+        Price expectedPriceBid = new Price(106, "EUR/USD", 1.1000,1.098,"01-06-2020 12:01:01:001");
+        testExpectedPricesBid.add(expectedPriceBid);
+
+
+    }
+
+    //Positive test cases
+    @Test
+    public void addCommissionBid() {
+        System.out.println("Bid commission applied to bid price by -0.1%");
+        List<Price> result = testCommission.addCommissionBid(testPrices);
+        assertEquals(testExpectedPricesBid,result);
 
     }
 
 
     @Test
-    void addCommissionBid() {
-        System.out.println("Checking if bid commission is applied correctly");
-        Price price = new Price();
-        price.setId(106);
-        price.setInstrumentName("EUR/USD");
-        price.setBid(1.1000);
-        price.setAsk(1.2000);
-        price.setTimestamp("01-06-2020 12:01:01:001");
-
-        List<Price> prices = new ArrayList<>();
-        prices.add(price);
-
-
-        List result = (List) commissionService.addCommissionBid(prices);
-        assertEquals(prices, result);
-
-
+    public void addCommissionAsk() {
+        System.out.println("Ask commission applied to bid price by +0.1%");
+        List<Price> result = testCommission.addCommissionAsk(testPrices);
+        assertEquals(testExpectedPricesAsk,result);
     }
 
-    @Test
-    void addCommissionAsk() {
-    }
+    //Negative test cases
+
+
+
 }
